@@ -19,8 +19,8 @@ export class AuthService {
                 hash,
             },
         });
-        delete user.hash;
-        return user
+        const { hash: removedHash, ...result } = user;
+        return result;
     }
         catch(error){
             if (error instanceof PrismaClientKnownRequestError) {
@@ -46,8 +46,8 @@ export class AuthService {
         if(!isPasswordValid) throw new ForbiddenException('Credenciais incorretas'); 
 
         //se o password estiver correto, retornar o usuario
-        delete user.hash;
-        return user;
+        const { hash: removedHash, ...result } = user;
+        return result;
     }
 
 }
